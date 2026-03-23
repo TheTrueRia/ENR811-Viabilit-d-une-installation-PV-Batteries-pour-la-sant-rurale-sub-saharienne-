@@ -7,7 +7,7 @@ class Composant:
         self.prix = prix_unitaire
         self.specs = specs
 
-class ProjetSolaireExpert:
+class ProjetSolaire:
     MATRICE_ETABLISSEMENTS = {
         "District Hospital": {"ratio": 138, "surface_type": 1500, "description": "Hôpital de district"},
         "Rural Clinic": {"conso_fixe": 15, "surface_type": 150, "description": "Petit dispensaire rural"},
@@ -29,13 +29,13 @@ class ProjetSolaireExpert:
         self.etab = self.MATRICE_ETABLISSEMENTS[type_etab]
         
         # Récupération sécurisée via API
-        self.pvgis = self._fetch_pvgis_data_robust()
+        self.pvgis = self._fetch_pvgis_data()
         
         # --- PERFORMANCE RATIO (PR) : CALCUL DU DOCUMENT ---
         # (1-0.15) * 0.98 * 0.90 * 0.95 * 0.98 = ~0.68
         self.rp = (1 - 0.15) * 0.98 * 0.90 * 0.95 * 0.98 
 
-    def _fetch_pvgis_data_robust(self):
+    def _fetch_pvgis_data(self):
         url_pv = "https://re.jrc.ec.europa.eu/api/v5_2/PVcalc"
         params_pv = {
             'lat': self.lat, 'lon': self.lon, 
@@ -143,4 +143,4 @@ bat = Composant("US5000", 1850, {'kWh': 4.8, 'DOD': 0.8, 'Rb': 0.9})
 inv = Composant("Quattro 8kVA", 3800, {'Pnom': 8000}) 
 reg = Composant("MPPT 250/60", 850, {}) 
 
-ProjetSolaireExpert("Afrique du Sud", "Test Case (Doc)").dimensionner_et_imprimer(pv, bat, inv, reg)
+ProjetSolaire("Afrique du Sud", "Test Case (Doc)").dimensionner_et_imprimer(pv, bat, inv, reg)
