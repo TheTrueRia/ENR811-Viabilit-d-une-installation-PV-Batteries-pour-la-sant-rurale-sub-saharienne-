@@ -79,7 +79,7 @@ class ProjetSolaireExpert:
             }
 
         except Exception as e:
-            # Mode secours avec les valeurs de votre rapport
+            # Mode secours avec les valeurs du rapport
             return {
                 'angle': 20.0, 'azimut': 0.0, 'perte_sys_pvgis': 13.63, 
                 'irr_min': 5.18, 'mois_sombre': "Juin", 
@@ -97,7 +97,7 @@ class ProjetSolaireExpert:
         nb_panneaux = math.ceil((pc_req / panel.specs['Pmax']) / 3) * 3
         pc_inst = nb_panneaux * panel.specs['Pmax']
         
-        # 3. PRODUCTION ANNUELLE (POUR COMPARER AU TABLEAU DU DOC)
+        # 3. PRODUCTION ANNUELLE 
         # Prod = P_inst * Irradiation_Annuelle_Plan * PR
         prod_annuelle_estimee = pc_inst * (self.pvgis['irr_annuelle_plan'] / 1000) * self.rp
         
